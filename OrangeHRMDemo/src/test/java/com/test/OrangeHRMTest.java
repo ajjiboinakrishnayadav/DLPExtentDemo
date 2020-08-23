@@ -24,6 +24,9 @@ public class OrangeHRMTest extends BaseClass {
         String actualTitle=driver.getTitle();
         String expectedTitle="OrangeHRM";
         Assert.assertEquals(actualTitle, expectedTitle);
+        
+		System.out.println("test two");
+
 	}
 	@Test
 	public void sampleCase() {
