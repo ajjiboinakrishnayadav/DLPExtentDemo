@@ -2,12 +2,17 @@ package com.basePackage;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -39,18 +44,25 @@ public class BaseClass {
 	@BeforeMethod
 	public void setup() {
 		WebDriverManager.chromedriver().setup();
-		ChromeOptions chromeOptions= new ChromeOptions();
-		chromeOptions.addArguments("headless");
-		chromeOptions.addArguments("window-size=1980,1080");
-	    driver = new ChromeDriver(chromeOptions);
+		/*
+		 * ChromeOptions chromeOptions= new ChromeOptions();
+		 * chromeOptions.addArguments("headless");
+		 * chromeOptions.addArguments("window-size=1980,1080");
+		 */ driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get("https://opensource-demo.orangehrmlive.com/index.php/");
+		driver.get("http://192.168.0.43:81/home");
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(70, TimeUnit.SECONDS);
+
 	}
 
-	@AfterMethod
+	//@AfterMethod
 	public void tearDown(ITestResult result) throws IOException {
 		driver.close();
 	}
+
+	
 
 	public static String screenShot(WebDriver driver, String filename) {
 		String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
@@ -64,8 +76,8 @@ public class BaseClass {
 			e.getMessage();
 		}
 		// This new path for jenkins
-		String newImageString = "http://localhost:8082/job/Demo4/ws/ExtentDemo/ScreenShot/" + filename + "_"
-				+ dateName + ".png";
+		String newImageString = "http://localhost:8082/job/Demo4/ws/ExtentDemo/ScreenShot/" + filename + "_" + dateName
+				+ ".png";
 		return newImageString;
 	}
 

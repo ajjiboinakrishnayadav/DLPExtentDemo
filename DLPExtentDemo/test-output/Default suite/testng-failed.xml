@@ -5,11 +5,8 @@
     <classes>
       <class name="com.test.OrangeHRMTest">
         <methods>
-          <include name="loginPageTest"/>
           <include name="setup"/>
-          <include name="tearDown"/>
           <include name="BeforeSuite"/>
-          <include name="sampleCase"/>
           <include name="AfterSuite"/>
           <include name="loginTest"/>
         </methods>
